@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+
+
 public class BoardManager : MonoBehaviour
 {
     [Header("Highlight")]
@@ -38,8 +40,11 @@ public class BoardManager : MonoBehaviour
     public GameObject blackQueen;
     public GameObject blackKing;
 
+    private ChessPiece promotionPawn;
+    
     private void Start()
     {
+        UpdateTurnStatus();
         GenerateGrid();
         SpawnPieces();
 
@@ -379,6 +384,156 @@ public class BoardManager : MonoBehaviour
             king.currentY,
             isWhite);
     }
+
+
+
+    public bool IsCheckmate(
+    bool isWhite)
+{
+    bool inCheck =
+        IsKingInCheck(isWhite);
+
+    bool hasMove =
+        HasAnyLegalMove(isWhite);
+
+    Debug.Log(
+        $"CHECKMATE TEST | " +
+        $"White={isWhite} | " +
+        $"InCheck={inCheck} | " +
+        $"HasMove={hasMove}");
+
+    return
+        inCheck &&
+        !hasMove;
+}
+
+public bool IsStalemate(
+    bool isWhite)
+{
+    if (IsKingInCheck(isWhite))
+        return false;
+
+    return !HasAnyLegalMove(
+        isWhite);
+}
+
+    private bool PieceHasLegalMove(
+    ChessPiece piece)
+{
+    switch (piece.pieceType)
+    {
+        case PieceType.Pawn:
+            return PawnHasLegalMove(piece);
+
+        case PieceType.Rook:
+            return RookHasLegalMove(piece);
+
+        case PieceType.Knight:
+            return KnightHasLegalMove(piece);
+
+        case PieceType.Bishop:
+            return BishopHasLegalMove(piece);
+
+        case PieceType.Queen:
+            return QueenHasLegalMove(piece);
+
+        case PieceType.King:
+            return KingHasLegalMove(piece);
+    }
+
+    return false;
+}
+
+private bool PawnHasLegalMove(
+    ChessPiece piece)
+{
+    int direction =
+        piece.isWhite ? 1 : -1;
+
+    // maju 1
+    int oneStepY =
+        piece.currentY + direction;
+
+    if (
+        IsInsideBoard(
+            piece.currentX,
+            oneStepY)
+        &&
+        IsTileEmpty(
+            piece.currentX,
+            oneStepY)
+        &&
+        !WouldMoveLeaveKingInCheck(
+            piece,
+            piece.currentX,
+            oneStepY))
+    {
+        return true;
+    }
+
+    // makan kiri
+    int leftX =
+        piece.currentX - 1;
+
+    int captureY =
+        piece.currentY + direction;
+
+    if (
+        IsInsideBoard(
+            leftX,
+            captureY))
+    {
+        ChessPiece target =
+            GetPiece(
+                leftX,
+                captureY);
+
+        if (
+            target != null
+            &&
+            target.isWhite !=
+            piece.isWhite
+            &&
+            !WouldMoveLeaveKingInCheck(
+                piece,
+                leftX,
+                captureY))
+        {
+            return true;
+        }
+    }
+
+    // makan kanan
+    int rightX =
+        piece.currentX + 1;
+
+    if (
+        IsInsideBoard(
+            rightX,
+            captureY))
+    {
+        ChessPiece target =
+            GetPiece(
+                rightX,
+                captureY);
+
+        if (
+            target != null
+            &&
+            target.isWhite !=
+            piece.isWhite
+            &&
+            !WouldMoveLeaveKingInCheck(
+                piece,
+                rightX,
+                captureY))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
     private void GenerateGrid()
     {
         for (int x = 0; x < 8; x++)
@@ -428,43 +583,144 @@ public class BoardManager : MonoBehaviour
     int targetX,
     int targetY)
     {
-        Debug.Log(
-        "Target Piece = " +
-        board[targetX, targetY]);
+        Debug.Log("Target Piece = " + board[targetX, targetY]);
         
-        ChessPiece targetPiece =
-            board[targetX, targetY];
+        ChessPiece targetPiece = board[targetX, targetY];
 
-        if (targetPiece != null)
+        // UPDATE LOGICAL BOARD IMMEDIATELY
+        board[piece.currentX, piece.currentY] = null;
+        board[targetX, targetY] = piece;
+        piece.SetPosition(targetX, targetY);
+        piece.hasMoved = true;
+        
+        Debug.Log(piece.name + " hasMoved = " + piece.hasMoved);
+
+        // VISUAL ANIMATION
+        Vector3 targetPos = GetTilePosition(targetX, targetY);
+        
+        piece.MoveTo(targetPos, () => 
         {
-            Destroy(targetPiece.gameObject);
+            if (targetPiece != null)
+            {
+                if (MusicManager.Instance != null) MusicManager.Instance.PlayCapture();
+                piece.PlayAttackAnimation();
+                
+                targetPiece.PlayLoseAnimation(() => {
+                    if (targetPiece != null && targetPiece.gameObject != null)
+                    {
+                        Destroy(targetPiece.gameObject);
+                    }
+                });
+            }
+        });
+    }
+
+    public void CheckPromotion(ChessPiece piece)
+    {
+        if (piece.pieceType != PieceType.Pawn)
+        {
+            return;
         }
 
-        board[
-            piece.currentX,
-            piece.currentY
-        ] = null;
+        GameUIManager ui = FindFirstObjectByType<GameUIManager>();
+        GameTimer timer = FindFirstObjectByType<GameTimer>();
+        OrbitCamera cam = FindFirstObjectByType<OrbitCamera>();
 
-        board[
-            targetX,
-            targetY
-        ] = piece;
+        // White Promotion
+        if (piece.isWhite && piece.currentY == 7)
+        {
+            promotionPawn = piece;
+            if (PlayerRole.IsWhitePlayer()) // Player is White
+            {
+                if (timer != null) timer.isPaused = true;
+                
+                if (cam != null)
+                {
+                    PromotionVFX vfx = piece.gameObject.AddComponent<PromotionVFX>();
+                    vfx.PlayPawnSpin();
 
-        piece.SetPosition(
-            targetX,
-            targetY);
+                    cam.FocusOn(GetTilePosition(piece.currentX, piece.currentY), 4f, () => {
+                        if (ui != null) ui.ShowPromotion();
+                    });
+                }
+                else
+                {
+                    if (ui != null) ui.ShowPromotion();
+                }
+            }
+            return;
+        }
 
-        piece.hasMoved = true;
+        // Black Promotion
+        if (!piece.isWhite && piece.currentY == 0)
+        {
+            promotionPawn = piece;
+            if (!PlayerRole.IsWhitePlayer()) // Player is Black
+            {
+                if (timer != null) timer.isPaused = true;
+                
+                if (cam != null)
+                {
+                    PromotionVFX vfx = piece.gameObject.AddComponent<PromotionVFX>();
+                    vfx.PlayPawnSpin();
 
-        piece.transform.position =
-            GetTilePosition(
-                targetX,
-                targetY);
+                    cam.FocusOn(GetTilePosition(piece.currentX, piece.currentY), 4f, () => {
+                        if (ui != null) ui.ShowPromotion();
+                    });
+                }
+                else
+                {
+                    if (ui != null) ui.ShowPromotion();
+                }
+            }
+            return;
+        }
     }
+
+private void PromotePawn(
+    ChessPiece pawn,
+    bool isWhite)
+{
+    int x = pawn.currentX;
+    int y = pawn.currentY;
+
+    Destroy(
+        pawn.gameObject);
+
+    GameObject queenPrefab =
+        isWhite
+        ? whiteQueen
+        : blackQueen;
+
+    GameObject queen =
+        Instantiate(
+            queenPrefab,
+            GetTilePosition(x, y),
+            Quaternion.identity);
+
+    ChessPiece cp =
+        queen.GetComponent<ChessPiece>();
+
+    cp.currentX = x;
+    cp.currentY = y;
+
+    cp.hasMoved = true;
+
+    board[x, y] = cp;
+
+    Debug.Log(
+        (isWhite
+        ? "WHITE"
+        : "BLACK")
+        +
+        " PROMOTED TO QUEEN");
+}
 
     public void SwitchTurn()
     {
         isWhiteTurn = !isWhiteTurn;
+
+        UpdateTurnStatus();
 
         Debug.Log(
             isWhiteTurn
@@ -594,5 +850,711 @@ public class BoardManager : MonoBehaviour
             }
         }
     }
+    public bool HasAnyLegalMove(
+    bool isWhite)
+{
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y++)
+        {
+            ChessPiece piece =
+                board[x, y];
+
+            if (piece == null)
+                continue;
+
+            if (piece.isWhite != isWhite)
+                continue;
+
+            if (PieceHasLegalMove(piece))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+    // private bool PieceHasLegalMove(
+    //     ChessPiece piece)
+    // {
+    //     switch (piece.pieceType)
+    //     {
+    //         case PieceType.Pawn:
+    //             return PawnHasLegalMove(piece);
+
+    //         case PieceType.Rook:
+    //             return false;
+
+    //         case PieceType.Knight:
+    //             return false;
+
+    //         case PieceType.Bishop:
+    //             return false;
+
+    //         case PieceType.Queen:
+    //             return false;
+
+    //         case PieceType.King:
+    //             return false;
+    //     }
+
+    //     return false;
+    // }
+
+    // private bool PawnHasLegalMove(
+    //     ChessPiece piece)
+    // {
+    //     int direction =
+    //         piece.isWhite ? 1 : -1;
+
+    //     int targetY =
+    //         piece.currentY + direction;
+
+    //     if (
+    //         IsInsideBoard(
+    //             piece.currentX,
+    //             targetY)
+    //         &&
+    //         IsTileEmpty(
+    //             piece.currentX,
+    //             targetY)
+    //         &&
+    //         !WouldMoveLeaveKingInCheck(
+    //             piece,
+    //             piece.currentX,
+    //             targetY))
+    //     {
+    //         return true;
+    //     }
+
+    //     return false;
+    // }
+
+    public bool CanCastleKingSide(
+        ChessPiece king)
+    {
+        if (king.hasMoved)
+            return false;
+
+        int rookX = 7;
+        int row = king.currentY;
+
+        ChessPiece rook =
+            GetPiece(rookX, row);
+
+        if (rook == null)
+            return false;
+
+        if (rook.pieceType != PieceType.Rook)
+            return false;
+
+        if (rook.hasMoved)
+            return false;
+
+        if (!IsTileEmpty(5, row))
+            return false;
+
+        if (!IsTileEmpty(6, row))
+            return false;
+
+        return true;
+    }
+
+    public void CastleKingSide(
+    ChessPiece king)
+{
+    int row =
+        king.currentY;
+
+    ChessPiece rook =
+        GetPiece(7, row);
+
+    if (rook == null)
+    {
+        Debug.LogError(
+            "Castle Failed : Rook NULL");
+
+        return;
+    }
+
+    MovePiece(
+        king,
+        6,
+        row);
+
+    MovePiece(
+        rook,
+        5,
+        row);
+}
+
+    public bool CanCastleQueenSide(
+        ChessPiece king)
+    {
+        if (king.hasMoved)
+            return false;
+
+        int row = king.currentY;
+
+        ChessPiece rook =
+            GetPiece(0, row);
+
+        if (rook == null)
+            return false;
+
+        if (rook.pieceType !=
+            PieceType.Rook)
+            return false;
+
+        if (rook.hasMoved)
+            return false;
+
+        if (!IsTileEmpty(1, row))
+            return false;
+
+        if (!IsTileEmpty(2, row))
+            return false;
+
+        if (!IsTileEmpty(3, row))
+            return false;
+
+        return true;
+    }
+
+    public void CastleQueenSide(
+    ChessPiece king)
+{
+    int row =
+        king.currentY;
+
+    ChessPiece rook =
+        GetPiece(0, row);
+
+    if (rook == null)
+    {
+        Debug.LogError(
+            "Castle Failed : Rook NULL");
+
+            return;
+    }
+
+    MovePiece(
+        king,
+        2,
+        row);
+
+    MovePiece(
+        rook,
+        3,
+        row);
+}
+
+    private bool KnightHasLegalMove(
+        ChessPiece piece)
+    {
+        int[,] moves =
+        {
+            { 1, 2 },
+            { -1, 2 },
+
+            { 1, -2 },
+            { -1, -2 },
+
+            { 2, 1 },
+            { 2, -1 },
+
+            { -2, 1 },
+            { -2, -1 }
+        };
+
+        for (int i = 0; i < 8; i++)
+        {
+            int x =
+                piece.currentX +
+                moves[i, 0];
+
+            int y =
+                piece.currentY +
+                moves[i, 1];
+
+            if (!IsInsideBoard(x, y))
+                continue;
+
+            ChessPiece target =
+                GetPiece(x, y);
+
+            if (
+                target == null
+                ||
+                target.isWhite != piece.isWhite)
+            {
+                if (!WouldMoveLeaveKingInCheck(
+                        piece,
+                        x,
+                        y))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private bool KingHasLegalMove(
+        ChessPiece piece)
+    {
+        for (int dx = -1; dx <= 1; dx++)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                if (dx == 0 && dy == 0)
+                    continue;
+
+                int x =
+                    piece.currentX + dx;
+
+                int y =
+                    piece.currentY + dy;
+
+                if (!IsInsideBoard(x, y))
+                    continue;
+
+                ChessPiece target =
+                    GetPiece(x, y);
+
+                // kosong
+                if (target == null)
+                {
+                    if (!WouldMoveLeaveKingInCheck(
+                            piece,
+                            x,
+                            y))
+                    {
+                        return true;
+                    }
+                }
+                // musuh
+                else if (
+                    target.isWhite !=
+                    piece.isWhite)
+                {
+                    if (!WouldMoveLeaveKingInCheck(
+                            piece,
+                            x,
+                            y))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    private bool RookHasLegalMove(
+        ChessPiece piece)
+    {
+        int[,] directions =
+        {
+            { 0, 1 },
+            { 0, -1 },
+            { 1, 0 },
+            { -1, 0 }
+        };
+
+        for (int d = 0; d < 4; d++)
+        {
+            int dirX =
+                directions[d, 0];
+
+            int dirY =
+                directions[d, 1];
+
+            int x =
+                piece.currentX + dirX;
+
+            int y =
+                piece.currentY + dirY;
+
+            while (IsInsideBoard(x, y))
+            {
+                ChessPiece target =
+                    GetPiece(x, y);
+
+                // kotak kosong
+                if (target == null)
+                {
+                    if (!WouldMoveLeaveKingInCheck(
+                            piece,
+                            x,
+                            y))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    // musuh
+                    if (target.isWhite !=
+                        piece.isWhite)
+                    {
+                        if (!WouldMoveLeaveKingInCheck(
+                                piece,
+                                x,
+                                y))
+                        {
+                            return true;
+                        }
+                    }
+
+                    break;
+                }
+
+                x += dirX;
+                y += dirY;
+            }
+        }
+
+        return false;
+    }
+
+    private bool BishopHasLegalMove(
+        ChessPiece piece)
+    {
+        int[,] directions =
+        {
+            { 1, 1 },
+            { -1, 1 },
+            { 1, -1 },
+            { -1, -1 }
+        };
+
+        for (int d = 0; d < 4; d++)
+        {
+            int dirX =
+                directions[d, 0];
+
+            int dirY =
+                directions[d, 1];
+
+            int x =
+                piece.currentX + dirX;
+
+            int y =
+                piece.currentY + dirY;
+
+            while (IsInsideBoard(x, y))
+            {
+                ChessPiece target =
+                    GetPiece(x, y);
+
+                if (target == null)
+                {
+                    if (!WouldMoveLeaveKingInCheck(
+                            piece,
+                            x,
+                            y))
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+                    if (target.isWhite !=
+                        piece.isWhite)
+                    {
+                        if (!WouldMoveLeaveKingInCheck(
+                                piece,
+                                x,
+                                y))
+                        {
+                            return true;
+                        }
+                    }
+
+                    break;
+                }
+
+                x += dirX;
+                y += dirY;
+            }
+        }
+
+        return false;
+    }
+
+    private bool QueenHasLegalMove(
+        ChessPiece piece)
+    {
+        return
+            RookHasLegalMove(piece)
+            ||
+            BishopHasLegalMove(piece);
+    }
+
+    public void ExecuteMove(
+    ChessPiece piece,
+    int targetX,
+    int targetY)
+    {
+        bool isCastling = piece.pieceType == PieceType.King && Mathf.Abs(targetX - piece.currentX) == 2;
+
+        if (isCastling)
+        {
+            if (targetX == 6)
+            {
+                CastleKingSide(piece);
+            }
+            else if (targetX == 2)
+            {
+                CastleQueenSide(piece);
+            }
+        }
+        else
+        {
+            MovePiece(
+                piece,
+                targetX,
+                targetY);
+
+            CheckPromotion(
+                piece);
+        }
+
+        ClearHighlights();
+
+        SwitchTurn();
+
+        GameUIManager ui =
+            FindFirstObjectByType<GameUIManager>();
+
+        // ==========================
+        // WHITE STATUS
+        // ==========================
+        if (IsCheckmate(true))
+        {
+            Debug.Log("WHITE CHECKMATE");
+
+            ChessPiece king = FindKing(true);
+            if (king != null)
+            {
+                king.PlayLoseAnimation(() => {
+                    if (ui != null)
+                    {
+                        ui.SetStatus("White Checkmate");
+                        ui.ShowPlayer2Win("SKAKMAT!", "Sisi putih terkena skakmat");
+                    }
+                });
+            }
+            else if (ui != null)
+            {
+                ui.SetStatus("White Checkmate");
+                ui.ShowPlayer2Win("SKAKMAT!", "Sisi putih terkena skakmat");
+            }
+
+            return;
+        }
+
+        if (IsStalemate(true))
+        {
+            Debug.Log("WHITE STALEMATE");
+
+            if (ui != null)
+            {
+                ui.SetStatus(
+                    "Stalemate");
+
+                ui.ShowDraw("REMIS!", "Stalemate - Sisi putih");
+            }
+
+            return;
+        }
+
+        if (IsKingInCheck(true))
+        {
+            Debug.Log("WHITE CHECK");
+
+            if (MusicManager.Instance != null) MusicManager.Instance.PlayCheck();
+
+            if (ui != null)
+            {
+                ui.SetStatus(
+                    "White King In Check");
+            }
+        }
+
+        // ==========================
+        // BLACK STATUS
+        // ==========================
+        if (IsCheckmate(false))
+        {
+            Debug.Log("BLACK CHECKMATE");
+
+            ChessPiece king = FindKing(false);
+            if (king != null)
+            {
+                king.PlayLoseAnimation(() => {
+                    if (ui != null)
+                    {
+                        ui.SetStatus("Black Checkmate");
+                        ui.ShowPlayer1Win("SKAKMAT!", "Sisi hitam terkena skakmat");
+                    }
+                });
+            }
+            else if (ui != null)
+            {
+                ui.SetStatus("Black Checkmate");
+                ui.ShowPlayer1Win("SKAKMAT!", "Sisi hitam terkena skakmat");
+            }
+
+            return;
+        }
+
+        if (IsStalemate(false))
+        {
+            Debug.Log("BLACK STALEMATE");
+
+            if (ui != null)
+            {
+                ui.SetStatus(
+                    "Stalemate");
+
+                ui.ShowDraw("REMIS!", "Stalemate - Sisi hitam");
+            }
+
+            return;
+        }
+
+        if (IsKingInCheck(false))
+        {
+            Debug.Log("BLACK CHECK");
+
+            if (MusicManager.Instance != null) MusicManager.Instance.PlayCheck();
+
+            if (ui != null)
+            {
+                ui.SetStatus(
+                    "Black King In Check");
+            }
+        }
+
+        Debug.Log(
+            $"Moved To {targetX},{targetY}");
+    }
+
+    public void PromoteSelectedPawn(
+        PromotionType type)
+    {
+        if (promotionPawn == null)
+            return;
+
+        int x = promotionPawn.currentX;
+        int y = promotionPawn.currentY;
+        bool isWhite = promotionPawn.isWhite;
+
+        Destroy(
+            promotionPawn.gameObject);
+
+        GameObject prefab = null;
+
+        switch (type)
+        {
+            case PromotionType.Queen:
+                prefab =
+                    isWhite
+                    ? whiteQueen
+                    : blackQueen;
+                break;
+
+            case PromotionType.Rook:
+                prefab =
+                    isWhite
+                    ? whiteRook
+                    : blackRook;
+                break;
+
+            case PromotionType.Bishop:
+                prefab =
+                    isWhite
+                    ? whiteBishop
+                    : blackBishop;
+                break;
+
+            case PromotionType.Knight:
+                prefab =
+                    isWhite
+                    ? whiteKnight
+                    : blackKnight;
+                break;
+        }
+
+        GameObject piece =
+            Instantiate(
+                prefab,
+                GetTilePosition(x, y),
+                Quaternion.identity);
+
+        ChessPiece cp =
+            piece.GetComponent<ChessPiece>();
+
+        cp.currentX = x;
+        cp.currentY = y;
+        cp.hasMoved = true;
+
+        board[x, y] = cp;
+
+        promotionPawn = null;
+
+        OrbitCamera cam = FindFirstObjectByType<OrbitCamera>();
+        if (cam != null && cam.hasZoomedIn)
+        {
+            PromotionVFX vfx = piece.AddComponent<PromotionVFX>();
+            vfx.PlaySpawnPop(() => {
+                cam.ResetFocus(() => {
+                    GameTimer timer = FindFirstObjectByType<GameTimer>();
+                    if (timer != null) timer.isPaused = false;
+                });
+            });
+        }
+        else
+        {
+            GameTimer timer = FindFirstObjectByType<GameTimer>();
+            if (timer != null) timer.isPaused = false;
+        }
+    }
+
+    public void SetPromotionPawn(
+        ChessPiece pawn)
+    {
+        promotionPawn = pawn;
+    }
+    public ChessPiece GetPromotionPawn()
+    {
+        return promotionPawn;
+    }
+    private void UpdateTurnStatus()
+    {
+        GameUIManager ui =
+            FindFirstObjectByType<GameUIManager>();
+
+        if (ui != null)
+        {
+            bool myTurn =
+                isWhiteTurn ==
+                PlayerRole.IsWhitePlayer();
+
+            ui.SetStatus(
+                myTurn
+                ? "Your Turn"
+                : "Opponent's Turn");
+        }
+    }
+
+
     
+
+
 }

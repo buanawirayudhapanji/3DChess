@@ -3,7 +3,12 @@ guid: e09246c08d7f84f9e94fb93069e220b5
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baju putih
+    second: {fileID: -2768732574541553918, guid: 41956161a30be3660bfd4ba30eb1e18a, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -17,12 +22,27 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Armature|diam' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bone' has translation animation that will
+      be discarded.\n\t'pinggangkiri.L' has translation animation that will be discarded.\n\t'pinggangkiri.R'
+      has translation animation that will be discarded.\n\nClip 'Armature|kalah'
+      has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Bone'
+      has translation animation that will be discarded.\n\t'Bone' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'pinggangkiri.L'
+      has translation animation that will be discarded.\n\t'pinggangkiri.R' has translation
+      animation that will be discarded.\n\nClip 'Armature|menyerang' has import animation
+      warnings that might lower retargeting quality:\nNote: Activate translation
+      DOF on avatar to improve retargeting quality.\n\t'Bone' has translation animation
+      that will be discarded.\n\t'pinggangkiri.L' has translation animation that
+      will be discarded.\n\t'pinggangkiri.R' has translation animation that will
+      be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -82,8 +102,307 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: Armature
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.R.002
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.R
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.R.001
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: dada
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.R.003
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.R.002
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.R.001
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.R
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone.010
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bone.011
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.L.003
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.L.002
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.L.001
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: tantankiri.L
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.L.002
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.L
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: kakikiri.L.001
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: queenWhite(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: queenWhite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Bone
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7089505, y: 0.012523197, z: -0.01252322, w: 0.7050358}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dada
+      parentName: Bone
+      position: {x: 2.8245494e-11, y: 0.010934514, z: 8.185452e-14}
+      rotation: {x: 0.04694173, y: 0.000000008001409, z: 0.026446097, w: 0.9985475}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: Bone.010
+      parentName: dada
+      position: {x: 1.16415315e-11, y: 0.008347738, z: -1.8175342e-10}
+      rotation: {x: -0.08856256, y: -0.0013051662, z: 0.030650886, w: 0.9955981}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: Bone.011
+      parentName: Bone.010
+      position: {x: -1.7462297e-11, y: 0.0026912298, z: -1.6727426e-10}
+      rotation: {x: 0.008729631, y: -0.003066011, z: -0.055056207, w: 0.9984404}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.011_end
+      parentName: Bone.011
+      position: {x: -0, y: 0.0069059986, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tantankiri.L.003
+      parentName: dada
+      position: {x: 1.16415315e-11, y: 0.008347738, z: -1.8175342e-10}
+      rotation: {x: 0.062324386, y: 0.00000009891278, z: 0.7803982, w: 0.6221691}
+      scale: {x: 0.9999999, y: 0.99999994, z: 1}
+    - name: tantankiri.L.002
+      parentName: tantankiri.L.003
+      position: {x: 2.4214386e-10, y: 0.008794954, z: 1.4901161e-10}
+      rotation: {x: 0.03444731, y: -0.001778519, z: 0.4194095, w: 0.9071416}
+      scale: {x: 1, y: 0.99999994, z: 1.0000001}
+    - name: tantankiri.L.001
+      parentName: tantankiri.L.002
+      position: {x: 0.0000000012665987, y: 0.0092102345, z: 7.4505804e-11}
+      rotation: {x: -0.14295715, y: 0.008036362, z: 0.13671263, w: 0.98020834}
+      scale: {x: 1, y: 0.9999998, z: 0.9999999}
+    - name: tantankiri.L
+      parentName: tantankiri.L.001
+      position: {x: 7.636845e-10, y: 0.008211717, z: -1.862645e-10}
+      rotation: {x: -0.053435724, y: -0.0074205343, z: -0.08672109, w: 0.9947708}
+      scale: {x: 0.9999998, y: 1, z: 1}
+    - name: tantankiri.L_end
+      parentName: tantankiri.L
+      position: {x: -0, y: 0.003933184, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tantankiri.R.003
+      parentName: dada
+      position: {x: -0.00048088736, y: 0.008356192, z: 0.00000045034582}
+      rotation: {x: 0.061583962, y: -0.00051326293, z: -0.7912745, w: 0.6083518}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: tantankiri.R.002
+      parentName: tantankiri.R.003
+      position: {x: -1.6763806e-10, y: 0.008794954, z: 3.72529e-10}
+      rotation: {x: 0.122445665, y: -0.054724094, z: -0.47390965, w: 0.87029994}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: tantankiri.R.001
+      parentName: tantankiri.R.002
+      position: {x: -8.9406965e-10, y: 0.009210233, z: -3.352761e-10}
+      rotation: {x: -0.20038113, y: 0.03931313, z: -0.25232506, w: 0.9458509}
+      scale: {x: 1, y: 1, z: 1}
+    - name: tantankiri.R
+      parentName: tantankiri.R.001
+      position: {x: -7.0780515e-10, y: 0.008211715, z: 1.4901161e-10}
+      rotation: {x: -0.053435713, y: 0.0074205375, z: 0.086721085, w: 0.9947708}
+      scale: {x: 0.99999976, y: 0.9999999, z: 0.99999994}
+    - name: tantankiri.R_end
+      parentName: tantankiri.R
+      position: {x: -0, y: 0.003933184, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pinggangkiri.L
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.09637252, y: -0.10716852, z: 0.7358037, w: 0.6616798}
+      scale: {x: 1, y: 1, z: 1}
+    - name: kakikiri.L.002
+      parentName: pinggangkiri.L
+      position: {x: -2.8754134e-11, y: 0.0038656571, z: 2.561137e-11}
+      rotation: {x: -0.5753109, y: -0.024468401, z: 0.01774378, w: 0.8173762}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: kakikiri.L
+      parentName: kakikiri.L.002
+      position: {x: 7.683411e-11, y: 0.012153188, z: -1.3969838e-10}
+      rotation: {x: -0.04944112, y: 0.0024827488, z: 0.053863224, w: 0.99732053}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: kakikiri.L.001
+      parentName: kakikiri.L
+      position: {x: -0, y: 0.015481679, z: 3.72529e-10}
+      rotation: {x: -0.1698786, y: -0.18180084, z: -0.52957857, w: 0.81094784}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: kakikiri.L.001_end
+      parentName: kakikiri.L.001
+      position: {x: -0, y: 0.0062089125, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: pinggangkiri.R
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.09637252, y: 0.10716852, z: -0.7358037, w: 0.6616798}
+      scale: {x: 1, y: 1, z: 1}
+    - name: kakikiri.R.002
+      parentName: pinggangkiri.R
+      position: {x: 2.8754134e-11, y: 0.0038656571, z: 2.561137e-11}
+      rotation: {x: -0.56053615, y: 0.00000012983898, z: -0.04364161, w: 0.8269792}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: kakikiri.R
+      parentName: kakikiri.R.002
+      position: {x: -3.7252902e-11, y: 0.012153187, z: -3.72529e-10}
+      rotation: {x: -0.017839942, y: 0.000998193, z: 0.034811717, w: 0.99923414}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: kakikiri.R.001
+      parentName: kakikiri.R
+      position: {x: -3.259629e-11, y: 0.015481681, z: 7.4505804e-11}
+      rotation: {x: -0.004525637, y: 0.20668927, z: 0.5639536, w: 0.79950947}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: kakikiri.R.001_end
+      parentName: kakikiri.R.001
+      position: {x: -0, y: 0.0062089125, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: back up.001
+      parentName: queenWhite(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: back up.002
+      parentName: queenWhite(Clone)
+      position: {x: 0.005960703, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: back up.003
+      parentName: queenWhite(Clone)
+      position: {x: 0.0032732487, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Circle
+      parentName: queenWhite(Clone)
+      position: {x: -0, y: 3.059153, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -94,13 +413,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  autoGenerateAvatarMappingIfUnspecified: 0
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

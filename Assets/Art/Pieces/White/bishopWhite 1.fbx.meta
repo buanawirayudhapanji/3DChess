@@ -1,0 +1,290 @@
+fileFormatVersion: 2
+guid: b2b2f82e890bbfe46921af7f1e2fd37f
+ModelImporter:
+  serializedVersion: 24200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baju putih
+    second: {fileID: -2768732574541553918, guid: 1a83926edc8fd9d5da2edaaab7948af7, type: 3}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    generateMeshLods: 0
+    meshLodGenerationFlags: 0
+    maximumMeshLod: -1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: bishopWhite 1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Armature
+      parentName: bishopWhite 1(Clone)
+      position: {x: 2.7679936e-16, y: 3.1975937, z: -0.01780848}
+      rotation: {x: 0.098014936, y: -2.6453906e-25, z: -2.176369e-17, w: 0.99518496}
+      scale: {x: 162.19623, y: 162.19624, z: 162.19624}
+    - name: Bone
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.980618, y: -0.020054119, z: 0.020054122, w: 0.19386598}
+      scale: {x: 0.9999999, y: 1.0000002, z: 1.0000002}
+    - name: Bone.001
+      parentName: Bone
+      position: {x: -0, y: 0.01, z: 0}
+      rotation: {x: 0.22149995, y: -0.0033070417, z: 0.034752212, w: 0.97453535}
+      scale: {x: 0.9999999, y: 1.0000012, z: 1.0000012}
+    - name: Kakikananbelakang.L.002
+      parentName: Bone.001
+      position: {x: -7.105427e-17, y: 0.009181372, z: 2.9802322e-10}
+      rotation: {x: 0.26796514, y: 0.023992231, z: -0.43973988, w: 0.85688275}
+      scale: {x: 1, y: 1.0000008, z: 1.0000012}
+    - name: Kakikananbelakang.L.001
+      parentName: Kakikananbelakang.L.002
+      position: {x: 0.0000000010430813, y: 0.003865994, z: 0.0000000013411044}
+      rotation: {x: -0.38489634, y: -0.30172956, z: 0.45982698, w: 0.74119717}
+      scale: {x: 1.0000017, y: 0.9999992, z: 1.0000005}
+    - name: Kakikananbelakang.L
+      parentName: Kakikananbelakang.L.001
+      position: {x: 8.9406965e-10, y: 0.0048153033, z: 7.4505804e-11}
+      rotation: {x: 0.11531161, y: -0.005531183, z: -0.05641874, w: 0.9917104}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
+    - name: Kakikananbelakang.L_end
+      parentName: Kakikananbelakang.L
+      position: {x: -0, y: 0.006284819, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Kakikananbelakang.R.002
+      parentName: Bone.001
+      position: {x: -6.881533e-17, y: 0.009181372, z: 2.9802322e-10}
+      rotation: {x: 0.26796526, y: -0.023991967, z: 0.4397398, w: 0.85688275}
+      scale: {x: 1.0000002, y: 1.0000007, z: 1.0000001}
+    - name: Kakikananbelakang.R.001
+      parentName: Kakikananbelakang.R.002
+      position: {x: -8.9406965e-10, y: 0.003865994, z: 7.4505804e-11}
+      rotation: {x: 0.0767984, y: 0.06228065, z: -0.42423746, w: 0.90013653}
+      scale: {x: 1.0000011, y: 1, z: 1.0000017}
+    - name: Kakikananbelakang.R
+      parentName: Kakikananbelakang.R.001
+      position: {x: -7.45058e-10, y: 0.004815303, z: 7.4505804e-11}
+      rotation: {x: 0.11531167, y: 0.0055311383, z: 0.056418773, w: 0.9917105}
+      scale: {x: 1.0000004, y: 1.0000011, z: 1.0000004}
+    - name: Kakikananbelakang.R_end
+      parentName: Kakikananbelakang.R
+      position: {x: -0, y: 0.006284819, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bone.005
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.000000023799418, y: -0.94901437, z: 0.3152328, w: -0.000000071648614}
+      scale: {x: 1.0000007, y: 0.99999994, z: 0.99999994}
+    - name: Bone.006
+      parentName: Bone.005
+      position: {x: -0, y: 0.013258672, z: 0}
+      rotation: {x: 0.01418698, y: 0.00977842, z: 0.0042162878, w: 0.9998427}
+      scale: {x: 1.0000027, y: 1.0000024, z: 1.000001}
+    - name: Bone.007
+      parentName: Bone.006
+      position: {x: -4.6566128e-12, y: 0.005875746, z: -1.4071702e-10}
+      rotation: {x: 0.4487447, y: -0.003570856, z: -0.0037045134, w: 0.8936452}
+      scale: {x: 1.0000008, y: 1.0000017, z: 0.9999997}
+    - name: Bone.008
+      parentName: Bone.007
+      position: {x: -2.8521753e-11, y: 0.0053838566, z: 1.3126737e-10}
+      rotation: {x: 0.008174477, y: -0.009416227, z: 0.61016095, w: 0.79217947}
+      scale: {x: 0.9999998, y: 0.99999934, z: 0.9999993}
+    - name: Bone.009
+      parentName: Bone.008
+      position: {x: -1.11758706e-10, y: 0.0029018235, z: -9.950599e-10}
+      rotation: {x: -0.0057243826, y: 0.000607352, z: 0.10115698, w: 0.99485385}
+      scale: {x: 1.0000015, y: 1.0000023, z: 1.0000005}
+    - name: Bone.010
+      parentName: Bone.009
+      position: {x: 2.7939677e-11, y: 0.0035779998, z: -9.839277e-10}
+      rotation: {x: -0.024902016, y: 0.00018309052, z: 0.009985654, w: 0.99964005}
+      scale: {x: 1.000001, y: 0.9999997, z: 1.0000004}
+    - name: Bone.011
+      parentName: Bone.010
+      position: {x: -1.8626451e-11, y: 0.0021693285, z: 7.3312545e-10}
+      rotation: {x: 0.08135653, y: -0.0017508199, z: -0.009633446, w: 0.9966369}
+      scale: {x: 1.0000007, y: 1.0000013, z: 0.9999994}
+    - name: Bone.012
+      parentName: Bone.011
+      position: {x: 1.3969838e-11, y: 0.0023147324, z: 0.0000000024920155}
+      rotation: {x: 0.1553307, y: 0.0000000371216, z: -0.049765997, w: 0.9866082}
+      scale: {x: 1.000001, y: 1.0000026, z: 0.9999985}
+    - name: Bone.012_end
+      parentName: Bone.012
+      position: {x: -0, y: 0.0013112868, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Kakikanandepan.L.002
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.024901494, y: -0.116772324, z: 0.9710131, w: -0.20706913}
+      scale: {x: 1.000001, y: 1.0000008, z: 1}
+    - name: Kakikanandepan.L.001
+      parentName: Kakikanandepan.L.002
+      position: {x: -1.05125936e-10, y: 0.007940434, z: 9.313225e-11}
+      rotation: {x: 0.11273872, y: 0.039692875, z: -0.22087452, w: 0.9679509}
+      scale: {x: 1.0000013, y: 1.0000013, z: 0.9999998}
+    - name: Kakikanandepan.L
+      parentName: Kakikanandepan.L.001
+      position: {x: -1.3969838e-11, y: 0.007175921, z: 1.3969838e-10}
+      rotation: {x: 0.09298367, y: -0.0052898894, z: -0.003427588, w: 0.99564767}
+      scale: {x: 0.99999964, y: 0.9999999, z: 0.99999905}
+    - name: Kakikanandepan.L_end
+      parentName: Kakikanandepan.L
+      position: {x: -0, y: 0.007325722, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Kakikanandepan.R.002
+      parentName: Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.014128417, y: 0.020535395, z: 0.9979519, w: 0.05891262}
+      scale: {x: 1.000001, y: 1.0000008, z: 1}
+    - name: Kakikanandepan.R.001
+      parentName: Kakikanandepan.R.002
+      position: {x: 1.05125936e-10, y: 0.007940434, z: 9.313225e-11}
+      rotation: {x: 0.106309675, y: -0.040310327, z: 0.21268873, w: 0.97048277}
+      scale: {x: 1.0000013, y: 1.0000013, z: 0.9999998}
+    - name: Kakikanandepan.R
+      parentName: Kakikanandepan.R.001
+      position: {x: 1.3969838e-11, y: 0.007175921, z: 1.3969838e-10}
+      rotation: {x: 0.11099694, y: 0.7785091, z: -0.10007395, w: 0.60958064}
+      scale: {x: 0.99999994, y: 1.0000002, z: 0.9999992}
+    - name: Kakikanandepan.R_end
+      parentName: Kakikanandepan.R
+      position: {x: -0, y: 0.007325722, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Camera
+      parentName: bishopWhite 1(Clone)
+      position: {x: -7.3588915, y: 4.958309, z: 6.925791}
+      rotation: {x: 0.09062847, y: 0.89379627, z: -0.20997298, w: 0.3857799}
+      scale: {x: 100, y: 100.00001, z: 99.99999}
+    - name: Empty
+      parentName: bishopWhite 1(Clone)
+      position: {x: -2.4188194e-17, y: 0.06602973, z: -0.06290853}
+      rotation: {x: 0.00000001545431, y: -0.70710677, z: 0.00000001545431, w: 0.7071068}
+      scale: {x: 213.64694, y: 213.64694, z: 213.64694}
+    - name: Light
+      parentName: bishopWhite 1(Clone)
+      position: {x: -4.0762453, y: 5.903862, z: -1.005454}
+      rotation: {x: 0.52327543, y: -0.34203392, z: 0.72694236, w: 0.28416622}
+      scale: {x: 100.00001, y: 100, z: 100}
+    - name: Plane
+      parentName: bishopWhite 1(Clone)
+      position: {x: 1.1477131e-22, y: 0.000000029802322, z: -0.00000007264316}
+      rotation: {x: -0.7071068, y: -4.2040054e-25, z: -3.4728746e-25, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Plane.001
+      parentName: bishopWhite 1(Clone)
+      position: {x: 1.1477131e-22, y: 0.000000029802322, z: -0.00000007264316}
+      rotation: {x: -0.7071068, y: -4.2040054e-25, z: -3.4728746e-25, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Plane.002
+      parentName: bishopWhite 1(Clone)
+      position: {x: 1.1477131e-22, y: 0.000000029802322, z: -0.00000007264316}
+      rotation: {x: -0.7071068, y: -4.2040054e-25, z: -3.4728746e-25, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

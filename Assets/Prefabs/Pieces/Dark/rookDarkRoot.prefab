@@ -864,8 +864,8 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3817702292583792902}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: edf1657c69d54e80db4c758aab01527e, type: 3}
+  m_Controller: {fileID: 9100000, guid: 83cc1501680a7656890c6d6db84e2be8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -893,6 +893,10 @@ MonoBehaviour:
   isWhite: 0
   currentX: 0
   currentY: 0
+  hasMoved: 0
+  moveStyle: 0
+  moveDuration: 0.5
+  jumpHeight: 1
 --- !u!1 &3915599724165073075
 GameObject:
   m_ObjectHideFlags: 0

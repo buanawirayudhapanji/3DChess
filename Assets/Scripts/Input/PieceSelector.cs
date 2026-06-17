@@ -30,6 +30,8 @@ public class PieceSelector : MonoBehaviour
 
         RaycastHit[] hits =
             Physics.RaycastAll(ray);
+            
+        Debug.Log("Klik! Jumlah objek yang tertembak Raycast: " + hits.Length);
 
         // ==========================
         // PRIORITAS 1
@@ -61,9 +63,22 @@ public class PieceSelector : MonoBehaviour
 
             if (piece == null)
                 continue;
+                
+            Debug.Log(
+                $"TERKLIK: {piece.name} | " +
+                $"Bidak White: {piece.isWhite} | " +
+                $"Player White: {PlayerRole.IsWhitePlayer()} | " +
+                $"Turn White: {boardManager.isWhiteTurn}");
+
+            if (piece.isWhite != PlayerRole.IsWhitePlayer())
+            {
+                Debug.Log("Gagal: Anda mengklik bidak musuh (Beda warna dengan Player).");
+                return; // <-- Ini membatalkan proses jika musuh keklik duluan
+            }
 
             if (piece.isWhite != boardManager.isWhiteTurn)
             {
+                Debug.Log("Gagal: Belum giliran warna ini jalan.");
                 boardManager.ClearHighlights();
                 return;
             }
@@ -75,7 +90,7 @@ public class PieceSelector : MonoBehaviour
             ShowLegalMoves(piece);
 
             Debug.Log(
-                $"{(piece.isWhite ? "White" : "Black")} {piece.pieceType} Selected"
+                $"{(piece.isWhite ? "White" : "Black")} {piece.pieceType} Berhasil Dipilih!"
             );
 
             return;
@@ -167,6 +182,22 @@ public class PieceSelector : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (boardManager.CanCastleKingSide(
+                piece))
+        {
+            boardManager.ShowHighlight(
+                6,
+                piece.currentY);
+        }
+
+        if (boardManager.CanCastleQueenSide(
+            piece))
+        {
+            boardManager.ShowHighlight(
+                2,
+                piece.currentY);
         }
     }
 
@@ -556,27 +587,14 @@ public class PieceSelector : MonoBehaviour
             return;
         }
 
-        boardManager.MovePiece(
-            selectedPiece,
-            targetX,
-            targetY);
+        // CASTLING
+        // Castling sekarang dideteksi otomatis oleh ExecuteMove di BoardManager
+        // melalui pengiriman SendMove di bawah ini.
 
-        selectedPiece = null;
-
-        boardManager.ClearHighlights();
-
-        boardManager.SwitchTurn();
-        if (boardManager.IsKingInCheck(true))
-        {
-            Debug.Log("WHITE CHECK");
-        }
-
-        if (boardManager.IsKingInCheck(false))
-        {
-            Debug.Log("BLACK CHECK");
-        }
-
-        Debug.Log(
-            $"Moved To {targetX},{targetY}");
+        GameNetworkManager.Instance.SendMove(
+        selectedPiece.currentX,
+        selectedPiece.currentY,
+        targetX,
+        targetY);
     }
 }
